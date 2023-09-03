@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+    <meta charset="utf-8">
+    <meta name="description" content="Data visualisation week 2"/>
+    <meta name="keywords" content="HTML, CSS, D3"/>
+    <meta name="author" content="Ngau Yong Sheng"/>
+
+    <title>LAB 2.4 D3 Loading Data from CSV</title>
+
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script>
+      var w = 500;
+      var h = 100;
+      var y = 0;
+      var x = 0;
+      var barPadding = 1;
+      var myData;
+
+
+    d3.csv("task2.4.csv", function(d) {
+      return {
+        Test: parseFloat(d.Test)
+      };
+    }).then(function(data) {
+      myData = data;
+      barChart(myData);
+    }).catch(function(error) {
+      d3.select("#chart")
+        .append("p")
+        .text("Couldn't load data!" +error);
+    });
+
+    function barChart()
+    {
+        var svg = d3.select("#chart")
+                    .append("svg")
+                    .attr("width", w)
+                    .attr("height", h);
+
+        svg.selectAll("rect")
+            .data(myData)
+            .enter()
+            .append("rect")
+            .attr("x", function(d, i) {
+              return i * (w / myData.length);
+            })
+            .attr("y", function(d, i){
+              return h - (d.Test * 4);
+            })
+            .attr("width", function(d, i) {
+              return w / myData.length - barPadding;
+            })
+            .attr("height", function(d, i) {
+              return d.Test * 4;
+            })
+            .style("fill", "#483D8B");
+      }
+    </script>
+
+    <style>
+      svg > rect {
+      fill: rgb(8, 151, 166);
+    }
+
+    a:link, a:visited {
+        background-color: #1d2fcb;
+        color: white;
+        padding: 15px 25px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+      }
+      
+      a:hover, a:active {
+        background-color: rgb(255, 149, 0);
+      }
+    </style>
+    
+  </head>
+  <body>
+
+    <h1>Lab 2.4 Chart drawn from CSV file</h1>
+    <p id ="chart"></p>
+
+    <a href="LAB 2.1.html">lab2.1</a>
+    <a href="Lab 2.2.html">lab2.2</a>
+    <a href="Lab 2.2-Optional.html">lab2.2 Optional</a>
+    <a href="Lab 2.3.html">lab2.3</a>
+    <a href="Lab 2.4.html">lab2.4</a>
+    <a href="../index.html">Home</a>
+    <br>
+  <footer style="background-color:#D0D0D0">COS30045 Data Visualisation<br>
+  Ngau Yong Sheng</footer>
+</body>
+</html>

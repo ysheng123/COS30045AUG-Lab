@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="description" content="Data visualisation week 2" />
+    <meta name="keywords" content="HTML, CSS" />
+    <meta name="author" content="Ngau Yong Sheng" />
+  
+    <title>LAB 2.2 D3 Drawing with Data - Bar Chart</title>
+  
+    <script src="https://d3js.org/d3.v7.min.js"></script> 
+
+    <style>
+        a:link, a:visited {
+          background-color: #1d2fcb;
+          color: white;
+          padding: 15px 25px;
+          text-align: center;
+          text-decoration: none;
+          display: inline-block;
+        }
+        
+        a:hover, a:active {
+          background-color: rgb(255, 149, 0);
+        }
+        </style>
+</head>
+
+<body>
+    <h1>LAB 2.2 D3 Drawing with Data - Bar Chart</h1>
+    
+
+    <script>
+        var w =500;
+        var h =200;
+        var barPadding = 2;
+        var dataset = [14, 5, 26, 23, 9, 90, 45, 32, 12, 4];
+
+        var svg = d3.select("body")
+                    .append("svg")
+                    .attr("width", w)
+                    .attr("height", h);
+
+        svg.selectAll("rect")
+           .data(dataset)
+           .enter()
+           .append("rect")
+           .attr("x",function(d,i) {
+            return i * (w / dataset.length);
+           })
+           .style("fill", "#00FF00")
+           .attr("y",function(d){
+            return h -(d*2)
+           })
+           .attr("y", 0) // keypoint to make the chart upside down
+           .attr("width", w / dataset.length - barPadding)
+           .attr("height",  function(d) {
+            return d*4 ;
+           });
+
+        
+            
+
+    </script>
+
+<p></p>
+    <a href="LAB 2.1.html">lab2.1</a>
+    <a href="Lab 2.2.html">lab2.2</a>
+    <a href="Lab 2.2-Optional.html">lab2.2 Optional</a>
+    <a href="Lab 2.3.html">lab2.3</a>
+    <a href="Lab 2.4.html">lab2.4</a>
+    <a href="../index.html">Home</a>
+    <br>
+<footer style="color:grey">
+    COS30045 Data Visualization <br> Ngau Yong Sheng
+</footer>
+</body>
+</html>
